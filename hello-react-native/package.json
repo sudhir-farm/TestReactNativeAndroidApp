@@ -16,7 +16,7 @@
     "run:android": "react-native run-android",
     "android": "npm run bundle:android && npm run run:android",
     "ios": "react-native run-ios",
-    "android_build":"fastlane build"
+    "android_build":"fastlane build dev"
   },
   "dependencies": {
     "react": "16.9.0",
