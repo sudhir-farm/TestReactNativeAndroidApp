@@ -1,0 +1,19 @@
+# Clean up the Android (apk/aab) files if already generated.
+gradle(
+	task: 'clean', 
+	project_dir: 'android/'
+)
+
+# Build Android debug apk
+gradle(
+	task: 'assemble', 
+	project_dir: 'android/',
+	build_type: 'Release', 
+	print_command: true, 
+	properties: {
+		"android.injected.signing.store.file" => "my-upload-key.keystore",
+		"android.injected.signing.store.password" => "my-upload-key",
+		"android.injected.signing.key.alias" => "my-key-alias",
+		"android.injected.signing.key.password" => "my-upload-key" 
+	}
+)

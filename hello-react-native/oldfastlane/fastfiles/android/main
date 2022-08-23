@@ -1,0 +1,21 @@
+import './fastfiles/android/utils'
+
+lane :dev do
+	generate_debug_build()
+end
+
+lane :stage do
+	generate_debug_build()
+	upload_build_testio()
+end
+
+lane :release do
+	generate_release_build()
+	upload_build_testio()
+end
+
+lane :release_store do
+	generate_release_bundle()
+	upload_build_playstore()
+	#sh "fastlane release_aab"
+end

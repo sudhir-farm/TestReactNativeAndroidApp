@@ -1,0 +1,16 @@
+# Lane to upload Android debug apk
+increment_version_code #[Optional] fastlane add_plugin increment_version_code
+
+# gradle(task: "clean assembleDebug", project_dir: 'android/') #or clean assembleRelease
+
+# upload Android debug apk only to testapp.io
+# App - Upload_Test_CI
+upload_to_testappio(
+	api_token: "167fbb38-2594-449a-b952-b26bc3485588",
+	app_id: "ROYJVeVYxZ",
+	release: "android",
+	apk_file: "./android/app/build/outputs/apk/debug/app-debug.apk",
+	release_notes: "Manual release notes for Android",
+	git_release_notes: false,
+	git_commit_id: false,
+	notify: true)

@@ -1,0 +1,95 @@
+
+
+def generate_debug_build()
+  # Clean up the Android (apk/aab) files if already generated.
+  clean()
+
+  # Build Android debug apk
+  build_debug_apk()
+  # puts name
+end
+
+def generate_release_build()
+  # Clean up the Android (apk/aab) files if already generated.
+  clean()
+
+  # Build Android debug apk
+  build_release_apk()
+  # puts name
+end
+
+def clean()
+  # Clean up the Android (apk/aab) files if already generated.
+  gradle(
+	task: 'clean', 
+	project_dir: 'android/'
+  )
+end
+
+def build_debug_apk()
+	# Build Android debug apk
+	gradle(
+		task: 'assemble', 
+		build_type: 'Debug', 
+		print_command: true, 
+		project_dir: 'android/'
+	)
+	# puts name
+end
+
+def build_release_apk()
+	# Build Android debug apk
+	gradle(
+		task: 'assemble', 
+		project_dir: 'android/',
+		build_type: 'Release', 
+		print_command: true, 
+		properties: {
+			"android.injected.signing.store.file" => "my-upload-key.keystore",
+			"android.injected.signing.store.password" => "my-upload-key",
+			"android.injected.signing.key.alias" => "my-key-alias",
+			"android.injected.signing.key.password" => "my-upload-key" 
+		}
+	)
+end
+
+def generate_release_bundle()
+	gradle(
+		task: 'bundle',
+		project_dir: 'android/',
+		build_type: 'Release',
+		print_command: true,
+		properties: {
+			"android.injected.signing.store.file" => "my-upload-key.keystore",
+			"android.injected.signing.store.password" => "my-upload-key",
+			"android.injected.signing.key.alias" => "my-key-alias",
+			"android.injected.signing.key.password" => "my-upload-key" 
+		}
+	)
+end
+
+def upload_build_testio()
+	increment_version_code #[Optional] fastlane add_plugin increment_version_code
+
+	# upload Android debug apk only to testapp.io
+	# App - Upload_Test_CI
+	upload_to_testappio(
+		api_token: "167fbb38-2594-449a-b952-b26bc3485588",
+		app_id: "ROYJVeVYxZ",
+		release: "android",
+		apk_file: "./android/app/build/outputs/apk/debug/app-debug.apk",
+		release_notes: "Manual release notes for Android",
+		git_release_notes: false,
+		git_commit_id: false,
+		notify: true
+	)
+end
+
+def upload_build_playstore()
+	# upload_to_play_store(
+	# 	track:'production',
+	# 	skip_upload_metadata: true,
+	# 	skip_upload_images: true,
+	# 	skip_upload_screenshots: true
+	# )
+end

@@ -1,0 +1,13 @@
+# Clean up the Android (apk/aab) files if already generated.
+gradle(
+	task: 'clean', 
+	project_dir: 'android/'
+)
+
+# Build Android debug apk
+gradle(
+	task: 'assemble', 
+	build_type: 'Debug', 
+	print_command: true, 
+	project_dir: 'android/'
+)

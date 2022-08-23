@@ -1,0 +1,14 @@
+default_platform(:android)
+
+platform :android do
+	# Android Lanes
+	desc 'Build and Upload the Android application.'
+	import './fastfiles/android/main'
+end
+
+
+platform :ios do
+	# iOS Lanes
+	desc 'Build and Upload the Android application.'
+	import './fastfiles/ios/main'
+end

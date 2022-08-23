@@ -1,0 +1,23 @@
+#import './fastfiles/android_utils'
+
+lane :dev do
+	#sh "fastlane debug"
+	import './fastfiles/debug'
+end
+
+lane :stage do
+	import './fastfiles/debug'
+	import './fastfiles/upload_testio'
+end
+
+lane :release do
+	import './fastfiles/release_apk'
+	import './fastfiles/upload_testio'
+end
+
+lane :release_store do
+	#sh "fastlane release_aab"
+	#sh "fastlane upload_to_play_store"
+	import './fastfiles/release_aab'
+	import './fastfiles/upload_¸playstore'
+end
